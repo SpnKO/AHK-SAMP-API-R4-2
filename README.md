@@ -1,208 +1,207 @@
 # AHK-SAMP-API
-#### By Ashkan-N
-### API für AutoHotkey von Grand Theft Auto San Andreas Multiplayer ohne eine .DLL Datei
+#### By Ashkan-N (Edited by SpnKO for R4-2 memory addresses)
+### A SA-MP AutoHotKey API without the use of .dlls, completely external. 
 
-Dies ist eine API für AutoHotkey von GTA SAMP.
-Hiermit wird es einem Programmierer vereinfacht in AutoHotkey zu arbeiten.
-Diese API stellt dem Programmierer mehrere Funktionen verfügbar um die Arbeit zu optimieren.
+This is an API for AutoHotKey that can be used to create scripts for GTA:SAMP.
+This API provides the programmer with several functions to optimize the work.
 
-### Funktionen
+### Functions
 ```autohotkey
 ###############################################################################################################################
-# SAMP-Funktionen:                                                                                                            #
+# SAMP Functions:                                                                                                             #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - IsSAMPAvailable()                         Prüft, ob man in den Chat schreiben kann & ob GTA geladen ist               #
-#     - IsInChat()                                Prüft, ob der Spieler gerade chattet oder in einem Dialog ist               #
-#     - GetPlayerName()                           Liest den Namen des Spielers aus                                            #
-#     - GetPlayerId()                             Liest die ID des Spielers aus                                               #
-#     - SendChat(wText)                           Sendet eine Nachricht oder einen Befehl direkt an den Server                #
-#     - AddChatMessage(wText)                     Fügt eine Zeile in den Chat ein (nur für den Spieler sichtbar)              #
-#     - ShowGameText(wText, dwTime, dwTextstyle)  Zeigt einen Text inmitten des Bildschirmes an                               #
-#     - PlayAudioStream(wUrl)                     Spielt einen "Audio Stream" ab                                              #
-#     - StopAudioStream()                         Stoppt den aktuellen Audio Stream                                           #
-#     - GetChatLine(Line, ByRef Output)           Liest die eingestellte Zeile aus,                                           #
-#                                                 Optionale Parameter (timestamp=0, color=0)                                  #
-#     - BlockChatInput()                          Eine Funktion, um Messages zum Server zu blockieren                         #
-#     - UnBlockChatInput()                        Eine Funktion, um Messages zum Server zu entblockieren                      #
-#                                                                                                                             #
-# --------------------------------------------------------------------------------------------------------------------------- #
-#                                                                                                                             #
-#     - GetServerName()                           Ermittelt den Server-Namen (HostName)                                       #
-#     - GetServerIp()                             Ermittelt die IP des Servers                                                #
-#     - GetServerPort()                           Ermittelt den Port des Servers                                              #
-#     - CountOnlinePlayers()                      Ermittelt wie viele Spieler auf dem Server Online sind.                     #
+#     - IsSAMPAvailable()                         A check to ensure that SA:MP is loaded.                                     #
+#     - IsInChat()                                A check to see if the player's chatbox or dialog is open                    #
+#     - GetPlayerName()                           Get the player's name                                                       #
+#     - GetPlayerId()                             Get the player's ID                                                         #
+#     - SendChat(wText)                           Send a message or command to the server                                     #
+#     - AddChatMessage(wText)                     Add a line to the chat (only visible to the player)                         #
+#     - ShowGameText(wText, dwTime, dwTextstyle)  Display text in the middle of the screen                                    #
+#     - PlayAudioStream(wUrl)                     Play music from a URL (borked, no plans to fix)                             #
+#     - StopAudioStream()                         Stop the music stream (borked, no plans to fix)                             #
+#     - GetChatLine(Line, ByRef Output)           Read string from the line (integer)                                         #
+#                                                 optional parameters (timestamp=0, color=0)                                  #
+#     - BlockChatInput()                          Block messages from being sent to the server                                #
+#     - UnBlockChatInput()                        Unblock messages from being sent to the server                              #
 #                                                                                                                             #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetWeatherId()                            Gibt die aktuelle Wetter ID zurück                                          #
-#     - GetWeatherName()                          Gibt den aktuellen Wetternamen zurück                                       #
+#     - GetServerName()                           Read the server's name                                                      #
+#     - GetServerIp()                             Read the server's IP                                                        #
+#     - GetServerPort()                           Read the server's port                                                      #
+#     - CountOnlinePlayers()                      Read the amount of players currently online                                 #
 #                                                                                                                             #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - PatchRadio()                              (interner stuff)                                                            #
-#     - UnPatchRadio()                            (interner stuff)                                                            #
+#     - GetWeatherId()                            Return weather ID                                                           #
+#     - GetWeatherName()                          Return the name of the current weather                                      #
+#                                                                                                                             #
+# --------------------------------------------------------------------------------------------------------------------------- #
+#                                                                                                                             #
+#     - PatchRadio()                              (internal stuff)                                                            #
+#     - UnPatchRadio()                            (internal stuff)                                                            #
 #                                                                                                                             #
 ###############################################################################################################################
-# SAMP Dialog Funktionen (v0.3.7):                                                                                            #
+# SAMP Dialog Functions (v0.3.7 R4-2):                                                                                        #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - IsDialogOpen()                            Prüft, ob gerade ein Dialog angezeigt wird (gibt true oder false zurück)    #
-#     - GetDialogStyle()                          Liest den Typ des (zuletzt) angezeigten Dialogs aus (0-5)                   #
-#     - GetDialogId()                             Liest die ID des (zuletzt) angezeigten Dialogs aus (auch vom Server)        #
-#     - SetDialogId(id)                           Setzt die ID des (zuletzt) angezeigten Dialogs                              #
-#     - GetDialogIndex()                          Liest die (zuletzt) ausgewählte Zeile des Dialogs aus                       #
-#     - GetDialogCaption()                        Liest die Überschrift des (zuletzt) angezeigten Dialogs aus                 #
-#     - GetDialogText()                           Liest den Text des (zuletzt) angezeigten Dialogs aus (auch bei Listen)      #
-#     - GetDialogLineCount()                      Liest die Anzahl der Zeilen/Items des (zuletzt) angezeigten Dialogs aus     #
-#     - GetDialogLine(index)                      Liest die Zeile an der Stelle [index] mittels GetDialogText aus             #
-#     - GetDialogLines__()                          Liest die Zeilen mittels GetDialogText aus (gibt ein Array zurück)        #
-#     - IsDialogButton1Selected()                 Prüft, ob Button1 des Dialogs ausgewählt ist                                #
-#     - GetDialogStructPtr()                      Liest den Base Pointer zur Dialogstruktur aus (intern genutzt)              #
+#     - IsDialogOpen()                            Check if a dialog is currently displayed (returns true or false)            #
+#     - GetDialogStyle()                          Read the type of the (last) displayed dialog (0-5)                          #
+#     - GetDialogId()                             Read the ID of the (last) displayed dialog (also from the server)           #
+#     - SetDialogId(id)                           Set the ID of the (last) displayed dialog                                   #
+#     - GetDialogIndex()                          Read the (last) selected line of the dialog                                 #
+#     - GetDialogCaption()                        Read the title of the (last) displayed dialog                               #
+#     - GetDialogText()                           Read the text of the (last) displayed dialog (also for lists)               #
+#     - GetDialogLineCount()                      Read the number of lines/items of the (last) displayed dialog               #
+#     - GetDialogLine(index)                      Read the line at the position [index] using GetDialogText                   #
+#     - GetDialogLines__()                        Read the lines using GetDialogText (returns an array)                       #
+#     - IsDialogButton1Selected()                 Check if Button1 of the dialog is selected                                  #
+#     - GetDialogStructPtr()                      Read the base pointer to the dialog structure (used internally)             #
 #                                                                                                                             #
-#     - ShowDialog(style, caption, text,          Zeigt einen Dialog an (nur lokal)                                           #
+#     - ShowDialog(style, caption, text,          Display a dialog (local only)                                               #
 #                  button1, button2, id)                                                                                      #
 #                                                                                                                             #
 ###############################################################################################################################
-# Extra-Player-Funktionen:                                                                                                    #
+# Extra Player Functions:                                                                                                     #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetTargetPed(dwPED)                       Zeigt die PED-ID, des Spielers, auf den man zielt.                          #
-#     - GetPedById(dwId)                          Zeigt die PED-Id zu der Id.                                                 #
-#     - GetIdByPed(dwId)                          Zeigt die Id der PED-Id.                                                    #
-#     - GetStreamedInPlayersInfo()                Zeigt Informationen über die gestreamten Spieler.                           #
-#     - CallFuncForAllStreamedInPlayers()         Führt bestimmte Funktionen, für die gestreamten Spieler aus.                #
-#     - GetDist(pos1,pos2)                        Rechnet den Abstand zwischen zwei Positionen aus.                           #
-#     - GetClosestPlayerPed()                     Zeigt die PED-ID, des Spielers, der am nahesten zu einem steht.             #
-#     - GetClosestPlayerId()                      Zeigt die Id, des Spielers, der am nahesten zu einem steht.                 #
-#     - GetPedCoordinates(dwPED)                  Zeigt die Koordinaten, der PED-ID.                                          #
-#     - GetTargetPosById(dwId)                    Zeigt die Position, zu der angegebenen Id.                                  #
-#     - GetTargetPlayerSkinIdByPed(dwPED)         Zeigt den Skin, zu der angegebenen PED-ID.                                  #
-#     - GetTargetPlayerSkinIdById(dwId)           Zeigt den Skin, zu der angegebenen ID.                                      #
-#     - CalcScreenCoords(fX, fY, fZ)              WorldToScreen Funktion                                                      #
+#     - GetTargetPed(dwPED)                       Return the ped ID of the player you are targeting.                          #
+#     - GetPedById(dwId)                          Return the ped ID of the SA:MP player ID provided.                          #
+#     - GetIdByPed(dwId)                          Return the SA:MP player ID of the ped ID provided.                          #
+#     - GetStreamedInPlayersInfo()                Display information about streamed players.                                 #
+#     - CallFuncForAllStreamedInPlayers()         Perform certain functions for all streamed players.                         #
+#     - GetDist(pos1,pos2)                        Calculate the distance between two positions.                               #
+#     - GetClosestPlayerPed()                     Return the ped ID of the player closest to you.                             #
+#     - GetClosestPlayerId()                      Return the SA:MP player ID of the player closest to you.                    #
+#     - GetPedCoordinates(dwPED)                  Return the coordinates of the provided PED ID.                              #
+#     - GetTargetPosById(dwId)                    Return the coordinates of the provided SA:MP player ID.                     #
+#     - GetTargetPlayerSkinIdByPed(dwPED)         Return the skin ID for the provided ped ID.                                 #
+#     - GetTargetPlayerSkinIdById(dwId)           Return the skin ID for the provided SA:MP player ID.                        #
+#     - CalcScreenCoords(fX, fY, fZ)              WorldToScreen Function                                                      #
 #                                                                                                                             #
 ###############################################################################################################################
-# Extra-Player-Fahrzeug-Funktionen:                                                                                           #
+# Extra Player Vehicle functions (ensure the player is in a vehicle first before calling, can lead to crashes):               #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetVehiclePointerByPed(dwPED)             Zeigt die PED-ID des Autos.                                                 #
-#     - GetVehiclePointerById(dwId)               Zeigt die PED-ID des Autos.                                                 #
-#     - IsTargetInAnyVehicleByPed(dwPED)          Zeigt ob der Spieler in einem Auto ist.                                     #
-#     - IsTargetInAnyVehicleById(dwId)            Zeigt ob der Spieler in einem Auto ist.                                     #
-#     - GetTargetVehicleHealthByPed(dwPED)        Zeigt ob der Spieler in einem Auto ist.                                     #
-#     - GetTargetVehicleHealthById(dwId)          Zeigt ob der Spieler in einem Auto ist.                                     #
-#     - GetTargetVehicleTypeByPed(dwPED)          Ermittelt den FahrzeugTyp (Auto, LKW etc.)                                  #
-#     - GetTargetVehicleTypeById(dwId)            Ermittelt den FahrzeugTyp (Auto, LKW etc.)                                  #
-#     - GetTargetVehicleModelIdByPed(dwPED)       Ermittelt die FahrzeuGmodell ID                                             #
-#     - GetTargetVehicleModelIdById(dwId)         Ermittelt die Fahrzeugmodell ID                                             #
-#     - GetTargetVehicleModelNameByPed(dwPED)     Ermittelt den Fahrzeugmodell Namen                                          #
-#     - GetTargetVehicleModelNameById(dwId)       Ermittelt den Fahrzeugmodell Namen                                          #
-#     - GetTargetVehicleLightStateByPed(dwPED)    Ermittelt den Lichtzustand des Autos                                        #
-#     - GetTargetVehicleLightStateById(dwId)      Ermittelt den Lichtzustand des Autos                                        #
-#     - GetTargetVehicleLockStateByPed(dwPED)     Ermittelt ob das Auto auf oder zu ist                                       #
-#     - GetTargetVehicleLockStateById(dwId)       Ermittelt ob das Auto auf oder zu ist                                       #
-#     - GetTargetVehicleColor1ByPed(dwPED)        Ermittelt die 1. Color-ID des Autos                                         #
-#     - GetTargetVehicleColor1ById(dwId)          Ermittelt die 1. Color-ID des Autos                                         #
-#     - GetTargetVehicleColor2ByPed(dwPED)        Ermittelt die 2. Color-ID des Autos                                         #
-#     - GetTargetVehicleColor2ById(dwId)          Ermittelt die 2. Color-ID des Autos                                         #
-#     - GetTargetVehicleSpeedByPed(dwPED)         Ermittelt die Geschwindigkeit des Autos                                     #
-#     - GetTargetVehicleSpeedById(dwId)           Ermittelt die Geschwindigkeit des Autos                                     #
+#     - GetVehiclePointerByPed(dwPED)             Return the vehicle pointer of the provided ped ID                           #
+#     - GetVehiclePointerById(dwId)               Return the vehicle pointer of the provided SA:MP player ID                  #
+#     - IsTargetInAnyVehicleByPed(dwPED)          Check if the provided ped ID is in any vehicle                              #
+#     - IsTargetInAnyVehicleById(dwId)            Check if the provided SA:MP player ID is in any vehicle                     #
+#     - GetTargetVehicleHealthByPed(dwPED)        Return the vehicle health value of the provided ped ID                      #
+#     - GetTargetVehicleHealthById(dwId)          Return the vehicle health value of the provided SA:MP player ID             #
+#     - GetTargetVehicleTypeByPed(dwPED)          Return the vehicle type (car, truck, etc.) of the provided ped ID           #
+#     - GetTargetVehicleTypeById(dwId)            Return the vehicle type (car, truck, etc.) of the provided SA:MP player ID  #
+#     - GetTargetVehicleModelIdByPed(dwPED)       Return the vehicle model ID of the provided ped ID                          #
+#     - GetTargetVehicleModelIdById(dwId)         Return the vehicle model ID of the provided SA:MP player ID                 #
+#     - GetTargetVehicleModelNameByPed(dwPED)     Return the vehicle name of the provided ped ID                              #
+#     - GetTargetVehicleModelNameById(dwId)       Return the vehicle name of the provided SA:MP player ID                     #
+#     - GetTargetVehicleLightStateByPed(dwPED)    Return the light status of the vehicle (ped ID)                             #
+#     - GetTargetVehicleLightStateById(dwId)      Return the light status of the vehicle (SA:MP player ID)                    #
+#     - GetTargetVehicleLockStateByPed(dwPED)     Return the lock status of the vehicle (ped ID)                              #
+#     - GetTargetVehicleLockStateById(dwId)       Return the lock status of the vehicle (SA:MP player ID)                     #
+#     - GetTargetVehicleColor1ByPed(dwPED)        Return the 1st color ID (ped ID)                                            #
+#     - GetTargetVehicleColor1ById(dwId)          Return the 1st color ID (SA:MP player ID)                                   #
+#     - GetTargetVehicleColor2ByPed(dwPED)        Return the 2nd color ID (ped ID)                                            #
+#     - GetTargetVehicleColor2ById(dwId)          Return the 2nd color ID (SA:MP player ID)                                   #
+#     - GetTargetVehicleSpeedByPed(dwPED)         Return the vehicle speed of the vehicle (ped ID)                            #
+#     - GetTargetVehicleSpeedById(dwId)           Return the vehicle speed of the vehicle (SA:MP player ID)                   #
 #                                                                                                                             #
 ###############################################################################################################################
-# Scoreboard-Funktionen:                                                                                                      #
+# Scoreboard Functions :                                                                                                      #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetPlayerScoreById(dwId)                  Zeigt den Score zu der Id                                                   #
-#     - GetPlayerPingById(dwId)                   Zeigt den Ping zu der Id                                                    #
-#     - GetPlayerNameById(dwId)                   Zeigt den Namen zu der Id                                                   #
-#     - GetPlayerIdByName(wName)                  Zeigt die Id zu dem Namen                                                   #
-#     - UpdateScoreboardDataEx()                  Aktualisiert Scoreboard Inhalte (wird implizit aufgerufen)                  #
-#     - UpdateOScoreboardData()                   Aktualisiert Scoreboard Inhalte (wird implizit aufgerufen)                  #
-#     - IsNPCById(dwId)                           Zeigt an ob die ID ein NPC                                                  #
+#     - GetPlayerScoreById(dwId)                  Get the score of the provided SA:MP player ID                               #
+#     - GetPlayerPingById(dwId)                   Get the ping of the provided SA:MP player ID                                #
+#     - GetPlayerNameById(dwId)                   Get the name of the provided SA:MP player ID                                #
+#     - GetPlayerIdByName(wName)                  Get the SA:MP player ID of the provided name                                #
+#     - UpdateScoreboardDataEx()                  Update scoreboard content (is called implicitly)                            #
+#     - UpdateOScoreboardData()                   Update scoreboard content (is called implicitly)                            #
+#     - IsNPCById(dwId)                           Check if the provided ID is an NPC                                          #
 #                                                                                                                             #
 ###############################################################################################################################
-# Spielerfunktionen:                                                                                                          #
+# Player Functions:                                                                                                           #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetPlayerHealth()                         Ermittelt die HP des Spielers                                               #
-#     - GetPlayerArmor()                          Ermittelt den Rüstungswert des Spielers                                     #
-#     - GetPlayerInteriorId()                     Ermittelt die Interior ID wo der Spieler ist                                #
-#     - GetPlayerSkinId()                         Ermittelt die Skin ID des Spielers                                          #
-#     - GetPlayerMoney()                          Ermittelt den Kontostand des Spielers (nur GTA Intern)                      #
-#     - GetPlayerWanteds()                        Ermittelt die Wantedanzahl des Spielers (nur bis 6 Wanteds)                 #
-#     - GetPlayerWeaponId()                       Ermittelt die Waffen ID des Spielers                                        #
-#     - GetPlayerWeaponName()                     Ermittelt den Namen, der Waffe des Spielers                                 #
-#     - GetPlayerState()                          Ermittelt den "Status" des Spielers (Zu Fuss, Fahrer, Tot)                  #
-#     - GetPlayerMapPosX()                        Ermittelt die X-Position auf der Map im Menu                                #
-#     - GetPlayerMapPosY()                        Ermittelt die Y-Position auf der Map im Menu                                #
-#     - GetPlayerMapZoom()                        Ermittelt den Zoom auf der Map im Menu                                      #
-#     - IsPlayerFreezed()                         Ermittelt ob der Spieler freezed ist                                        #
+#     - GetPlayerHealth()                         Return player health value                                                  #
+#     - GetPlayerArmor()                          Return player armor value                                                   #
+#     - GetPlayerInteriorId()                     Return player interior ID                                                   #
+#     - GetPlayerSkinId()                         Return player skin ID                                                       #
+#     - GetPlayerMoney()                          Return player money value                                                   #
+#     - GetPlayerWanteds()                        Return the wanted level of the player (up to 6)                             #
+#     - GetPlayerWeaponId()                       Return the weapon ID of the currently held weapon                           #
+#     - GetPlayerWeaponName()                     Return the name of the currently held weapon                                #
+#     - GetPlayerState()                          Return the state of the player (In a vehicle, walking, dead)                #
+#     - GetPlayerMapPosX()                        Return the X position on the map in the menu                                #
+#     - GetPlayerMapPosY()                        Return the Y position on the map in the menu                                #
+#     - GetPlayerMapZoom()                        Return the zoom value on the map in the menu                                #
+#     - IsPlayerFreezed()                         Return (true or false) if the player is frozen                              #
 #                                                                                                                             #
 ###############################################################################################################################
-# Fahrzeugfunktionen:                                                                                                         #
+# Vehicle functions:                                                                                                          #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - IsPlayerInAnyVehicle()                    Ermittelt, ob sich der Spieler in einem Fahrzeug befindet                   #
-#     - GetVehicleHealth()                        Ermittelt die HP des Fahrzeugs, in dem der Spieler sitzt                    #
-#     - IsPlayerDriver()                          Ermittelt ob der Spieler Fahrer des Autos ist                               #
-#     - GetVehicleType()                          Ermittelt den FahrzeugTyp (Auto, LKW etc.)                                  #
-#     - GetVehicleModelId()                       Ermittelt die Fahrzeugmodell ID                                             #
-#     - GetVehicleModelName()                     Ermittelt den Fahrzeugmodell Namen                                          #
-#     - GetVehicleLightState()                    Ermittelt den Lichtzustand des Autos                                        #
-#     - GetVehicleEngineState()                   Ermittelt den Motorzustand des Autos                                        #
-#     - GetVehicleLockState()                     Ermittelt ob das Auto auf oder zu ist                                       #
-#     - GetVehicleColor1()                        Ermittelt die 1. Farbe ID des Autos                                         #
-#     - GetVehicleColor2()                        Ermittelt die 2. Farbe ID des Autos                                         #
-#     - GetVehicleSpeed()                         Ermittelt die Geschwindigkeit des Autos                                     #
-#     - GetPlayerRadiostationId()                 Ermittelt die Radiostation-ID des Autos                                     #
-#     - GetPlayerRadiostationName()               Ermittelt den Radiostation-Namen des Autos                                  #
-#     - GetVehicleNumberPlate()                   Ermittelt das Kennzeichen des Autos                                         #
+#     - IsPlayerInAnyVehicle()                    Check if the player is in any vehicle                                       #
+#     - GetVehicleHealth()                        Return the vehicle health value                                             #
+#     - IsPlayerDriver()                          Check if the player is the driver                                           #
+#     - GetVehicleType()                          Return the vehicle type (car, truck, etc.)                                  #
+#     - GetVehicleModelId()                       Return the vehicle model ID                                                 #
+#     - GetVehicleModelName()                     Return the vehicle name                                                     #
+#     - GetVehicleLightState()                    Return the vehicle's light state                                            #
+#     - GetVehicleEngineState()                   Return the vehicle's engine state                                           #
+#     - GetVehicleLockState()                     Return the vehicle's lock state                                             #
+#     - GetVehicleColor1()                        Return the vehicle's 1st color ID                                           #
+#     - GetVehicleColor2()                        Return the vehicle's 2nd color ID                                           #
+#     - GetVehicleSpeed()                         Return the vehicle's current speed                                          #
+#     - GetPlayerRadiostationId()                 Return the player's radio state ID                                          #
+#     - GetPlayerRadiostationName()               Return the player's radio state name                                        #
+#     - GetVehicleNumberPlate()                   Return the vehicle's license plate                                          #
 #                                                                                                                             #
 ###############################################################################################################################
-# Standpunktbestimmung:                                                                                                       #
+# Location related functions:                                                                                                 #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - GetPlayerCoordinates()                    Ermittelt die aktuelle Position (Koordinaten)                               #
-#     - GetPlayerPos(X, Y, Z)                     siehe oben drüber                                                           #
+#     - GetPlayerCoordinates()                    Return the current player position (coordinates)                            #
+#     - GetPlayerPos(X, Y, Z)                     Same as above                                                               #
 #                                                                                                                             #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - InitZonesAndCities()                      Initialisiert eine Liste aller Standartgebiete                              #
-#                                                 (Voraussetzung für die folgenden Funktionen dieser Kategorie)               #
-#     - CalculateZone(X, Y, Z)                    Bestimmt die Zone (= Stadtteil) aus den geg. Koordinaten                    #
-#     - CalculateCity(X, Y, Z)                    Bestimmt die Stadt aus den geg. Koordinaten                                 #
-#     - GetCurrentZonecode()                      Ermittelt die aktulle Zone in Kurzform (Entfernt, da es nicht funktioniert) #
-#     - AddZone(Name, X1, Y1, Z1, X2, Y2, Z2)     Fügt eine Zone zum Index hinzu                                              #
-#     - AddCity(Name, X1, Y1, Z1, X2, Y2, Z2)     Fügt eine Stadt zum Index hinzu                                             #
-#     - IsPlayerInRangeOfPoint(X, Y, Z, Radius)   Bestimmt ob der Spieler in der Nähe der Koordinaten ist                     #
-#     - IsPlayerInRangeOfPoint2D(X, Y, Radius)    Bestimmt ob der Spieler in der Nähe der Koordinaten ist                     #
-#     - GetPlayerZone()                                                                                                       #
-#     - GetPlayerCity()                                                                                                       #
+#     - InitZonesAndCities()                      Initialize a list of all default areas                                      #
+#                                                 (Prerequisite for the following functions in this category)                 #
+#     - CalculateZone(X, Y, Z)                    Return the zone (or district) from the provided coordinates                 #
+#     - CalculateCity(X, Y, Z)                    Return the city from the provided coordinates                               #
+#     - GetCurrentZonecode()                      Get the current zone in short form (borked, no plans to fix)                #
+#     - AddZone(Name, X1, Y1, Z1, X2, Y2, Z2)     Add a zone to the index                                                     #
+#     - AddCity(Name, X1, Y1, Z1, X2, Y2, Z2)     Add a city to the index                                                     #
+#     - IsPlayerInRangeOfPoint(X, Y, Z, Radius)   Checks if the player is in the area and radius provided                     #
+#     - IsPlayerInRangeOfPoint2D(X, Y, Radius)    Checks if the player is in the area and radius provided (without height)    #
+#     - GetPlayerZone()                           Returns the player's current zone                                           #
+#     - GetPlayerCity()                           Returns the player's current city                                           #
 #                                                                                                                             #
 ###############################################################################################################################
-# Sonderfunktionen:                                                                                                           #
+# Special functions:                                                                                                           #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - getServerStatus(INADDR, PORT)             Zeigt den Status eines Servers an                                           #
-#     - getAttacker(bReset := false)              Ermittelt den letzten Angreifer                                             #
-#     - UnlockFPS()                               Entfernt das FPS-Limit                                                      #
-#     - FormatNumber(number)                      Formatiert eine Nummer                                                      #
-#     - PlayerInput(text)                         Öffnet eine Spielereingabe im Chat                                          #
-#     - DownloadToString(url, encoding = "utf-8") Downloaded eine Textdatei als String                                        #
-#     - stringMath(string)                        Berechnet eine Mathematische Aufgabe                                        #
-#     - getPageSize()                             Chatline Anzahl auslesen                                                    #
-#     - SetPercentageHealthAndArmor(toggle)       Lebens- und Rüstungsanzeige in Prozent anzeigen                             #
-#     - SetChatLine(line, string)                 Inhalt einer bestimmten Zeile ändern                                        #
-#     - UrlDownloadToVar(URL, ByRef Result, UserAgent = "", Proxy = "", ProxyBypass = "") URL als Variable                    #
+#     - getServerStatus(INADDR, PORT)             Display the status of the server                                            #
+#     - getAttacker(bReset := false)              Return the last attacker                                                    #
+#     - UnlockFPS()                               Unlock FPS                                                                  #
+#     - FormatNumber(number)                      Format a number                                                             #
+#     - PlayerInput(text)                         Opens a player input in chat                                                #
+#     - DownloadToString(url, encoding = "utf-8") Downloaded a text file as a string                                          #
+#     - stringMath(string)                        Calculate a math problem from string                                        #
+#     - getPageSize()                             Return the current pagesize (from /pagesize)                                #
+#     - SetPercentageHealthAndArmor(toggle)       Show player health and armor percentage                                     #
+#     - SetChatLine(line, string)                 Change the content of a specific line                                       #
+#     - UrlDownloadToVar(URL, ByRef Result, UserAgent = "", Proxy = "", ProxyBypass = "") URL as a variable                   #
 #                                                                                                                             #
 ###############################################################################################################################
-# Sonstiges:                                                                                                                  #
+# Miscellaneous:                                                                                                                  #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
-#     - AntiCrash()                               Hilft gegen das abstürzen bei Warningscodes                                 #
+#     - AntiCrash()                               Helps against crashing with warning codes(potentially borked)               #
 #                                                                                                                             #
 ###############################################################################################################################
-# Speicherfunktionen (intern genutzt):                                                                                        #
+# Memory functions (used internally):                                                                                         #
 # --------------------------------------------------------------------------------------------------------------------------- #
 #                                                                                                                             #
 #     - checkHandles()                                                                                                        #
@@ -232,7 +231,7 @@ Diese API stellt dem Programmierer mehrere Funktionen verfügbar um die Arbeit z
 ```
 ### Credits
 #### SAMP UDF R17
-##### SAMP Version: 0.3.7 - R2
+##### SAMP Version: 0.3.7 - R4-2
 
 > Written by Chuck_Floyd 
 https://github.com/FrozenBrain
@@ -253,4 +252,7 @@ https://github.com/pkfln
 
 > Modified by: Ashkan-N
 https://github.com/Ashkan-N
+
+> Modified by: SpnKO
+https://github.com/SpnKO
 _____
