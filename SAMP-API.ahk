@@ -1,4 +1,5 @@
-﻿; #### SAMP UDF R17 ####
+﻿
+; #### SAMP UDF R17 ####
 ; SAMP Version: 0.3.7
 ; Written by Chuck_Floyd 
 ; https://github.com/FrozenBrain
@@ -43,7 +44,6 @@ global ADDR_CPED_ARMOROFF           := 0x548         ;Player Armour
 global ADDR_CPED_MONEY              := 0x0B7CE54     ;Player Money
 global ADDR_CPED_INTID              := 0xA4ACE8      ;Player Interior-ID
 global ADDR_CPED_SKINIDOFF          := 0x22          ;Player Skin-ID
-;
 global ADDR_VEHICLE_PTR             := 0xBA18FC      ;Vehicle CPED Pointer
 global ADDR_VEHICLE_HPOFF           := 0x4C0         ;Vehicle Health
 global ADDR_VEHICLE_DOORSTATE       := 0x4F8         ;Vehicle Door Status
@@ -63,14 +63,14 @@ global oradiostationNames := ["Playback FM", "K Rose", "K-DST", "Bounce FM", "SF
 global oweatherNames := ["EXTRASUNNY_LA", "SUNNY_LA", "EXTRASUNNY_SMOG_LA", "SUNNY_SMOG_LA", "CLOUDY_LA", "SUNNY_SF", "EXTRASUNNY_SF", "CLOUDY_SF", "RAINY_SF", "FOGGY_SF", "SUNNY_VEGAS", "EXTRASUNNY_VEGAS", "CLOUDY_VEGAS", "EXTRASUNNY_COUNTRYSIDE", "SUNNY_COUNTRYSIDE", "CLOUDY_COUNTRYSIDE", "RAINY_COUNTRYSIDE", "EXTRASUNNY_DESERT", "SUNNY_DESERT", "SANDSTORM_DESERT", "UNDERWATER", "EXTRACOLOURS_1", "EXTRACOLOURS_2"]
 
 ; ########################## SAMP addresses ##########################
-global ADDR_SAMP_INCHAT_PTR                 := 0x21a10c
-global ADDR_SAMP_INCHAT_PTR_OFF             := 0x55
-global ADDR_SAMP_USERNAME                   := 0x219A6F
-global FUNC_SAMP_SENDCMD                    := 0x65c60
-global FUNC_SAMP_SENDSAY                    := 0x57f0
-global FUNC_SAMP_ADDTOCHATWND               := 0x64520
-global ADDR_SAMP_CHATMSG_PTR                := 0x21a0e4
-global FUNC_SAMP_SHOWGAMETEXT               := 0x9c2c0
+global ADDR_SAMP_INCHAT_PTR                 := 0x26EA24
+global ADDR_SAMP_INCHAT_PTR_OFF             := 0x60
+global ADDR_SAMP_USERNAME                   := 0x26E16F
+global FUNC_SAMP_SENDCMD                    := 0x69900
+global FUNC_SAMP_SENDSAY                    := 0x05A10
+global FUNC_SAMP_ADDTOCHATWND               := 0x68070
+global ADDR_SAMP_CHATMSG_PTR                := 0x26E9F8
+global FUNC_SAMP_SHOWGAMETEXT               := 0xA70C0
 global FUNC_SAMP_PLAYAUDIOSTR               := 0x62da0
 global FUNC_SAMP_STOPAUDIOSTR               := 0x629a0
 
@@ -85,7 +85,7 @@ global DIALOG_STYLE_TABLIST_HEADERS         := 5
 
 
 ; ######################### Dialog structure #########################
-global SAMP_DIALOG_STRUCT_PTR               := 0x21A0B8
+global SAMP_DIALOG_STRUCT_PTR               := 0x26E9C8
 global SAMP_DIALOG_PTR1_OFFSET              := 0x1C
 global SAMP_DIALOG_LINES_OFFSET             := 0x44C
 global SAMP_DIALOG_INDEX_OFFSET             := 0x443
@@ -98,13 +98,13 @@ global SAMP_DIALOG_STYLE_OFFSET             := 0x2C
 global SAMP_DIALOG_ID_OFFSET                := 0x30
 global SAMP_DIALOG_TEXT_PTR_OFFSET          := 0x34
 global SAMP_DIALOG_CAPTION_OFFSET           := 0x40
-global FUNC_SAMP_SHOWDIALOG                 := 0x6B9C0
-global FUNC_SAMP_CLOSEDIALOG                := 0x6C040
+global FUNC_SAMP_SHOWDIALOG                 := 0x6FFE0
+global FUNC_SAMP_CLOSEDIALOG                := 0x70660
 
 
 ; ######################### Scoreboard #########################
-global FUNC_UPDATESCOREBOARD                := 0x8A10
-global SAMP_INFO_OFFSET                     := 0x21A0F8
+global FUNC_UPDATESCOREBOARD                := 0x8F10
+global SAMP_INFO_OFFSET                     := 0x26EA0C
 global ADDR_SAMP_CRASHREPORT                := 0x5CF2C
 global SAMP_PPOOLS_OFFSET                   := 0x3CD
 global SAMP_PPOOL_PLAYER_OFFSET             := 0x18
